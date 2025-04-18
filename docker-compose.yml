@@ -1,0 +1,33 @@
+version: "3"
+services:
+  app:
+    container_name: twitch-command-app
+    working_dir: /app
+    build:
+      context: ./app
+      target: dev
+    volumes:
+      - ./app/src:/app/src
+      - ./app/.svelte-kit:/app/.svelte-kit
+      - ./app/static:/app/static
+      - ./app/vite.config.ts:/app/vite.config.ts
+      - ./app/tsconfig.json:/app/tsconfig.json
+      - ./app/svelte.config.js:/app/svelte.config.js
+      - ./app/tailwind.config.js:/app/tailwind.config.js
+      - ./app/postcss.config.js:/app/postcss.config.js
+      - ./app/.env:/app/.env
+      - /app/node_modules
+    ports:
+      - 3000:3000
+    command: npm run dev
+
+  pb:
+    container_name: twich-command-pocketbase
+    working_dir: /pb
+    build:
+      context: ./pb
+    volumes:
+      - ./pb/pb_data:/pb/pb_data
+      - ./pb/pb_migrations:/pb/pb_migrations
+    ports:
+      - 8080:8080
