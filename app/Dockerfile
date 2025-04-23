@@ -17,7 +17,7 @@ WORKDIR /app
 COPY . .
 
 RUN npm install
-RUN npm build
+RUN npm run build
 
 # Production
 FROM node:19-alpine as prod
